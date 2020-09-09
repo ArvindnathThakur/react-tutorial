@@ -255,3 +255,5 @@ tools/*
 .idea
 *.playlist
 /gv.log.txt
+
+dist
