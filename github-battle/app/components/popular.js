@@ -1,5 +1,6 @@
 import React from 'react'
 import LanguagesNav from './LanguagesNav'
+import Loading from './Loading'
 import ReposGrid from './ReposGrid'
 import { getPopularRepos } from './utils/api'
 
@@ -57,7 +58,7 @@ export default class Popular extends React.Component {
         return (
             <React.Fragment>
                 <LanguagesNav selected={selectedLanguage} onUpdateLanguage={this.updateLanguage}/>
-                {this.isLoading() && <p>Loading...</p>}
+                {this.isLoading() && <Loading speed={100}/>}
                 {error && <p className='center-text error'>{error}</p>}
                 {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]}/>}
             </React.Fragment>
