@@ -28,7 +28,7 @@ export default class Popular extends React.Component {
 
         if(!this.state.repos[selectedLanguage])
         {
-            fetchPopularRepos(selectedLanguage)
+            getPopularRepos(selectedLanguage)
             .then((data) => {
                 this.setState(({ repos }) => ({
                     repos: {
@@ -58,7 +58,7 @@ export default class Popular extends React.Component {
             <React.Fragment>
                 <LanguagesNav selected={selectedLanguage} onUpdateLanguage={this.updateLanguage}/>
                 {this.isLoading() && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                {error && <p className='center-text error'>{error}</p>}
                 {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]}/>}
             </React.Fragment>
         )
