@@ -17,5 +17,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './app/index.html'
         })
-    ]
+    ],
+    devServer: {
+        open: 'Google chrome'
+    } 
 }

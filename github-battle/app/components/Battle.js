@@ -13,8 +13,9 @@ export default class Battle extends React.Component {
       battle: false,
     };
 
-    this.onSubmit = this.handleSubmit.bind(this);
-    this.handleReste = this.handleReset.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleResetBattle = this.handleResetBattle.bind(this);
   }
 
   handleSubmit(id, player) {
@@ -30,15 +31,21 @@ export default class Battle extends React.Component {
   }
 
   handleBattle() {
+    
+  }
+
+  handleResetBattle() {
     this.setState({
-      battle: true,
+      playerOne: null,
+      playerTwo: null,
+      battle: false
     });
   }
 
   render() {
     const { playerOne, playerTwo, battle } = this.state;
     if (battle === true) {
-      return <Results playerOne={playerOne} playerTwo={playerTwo} />;
+      return <Results playerOne={playerOne} playerTwo={playerTwo} onReset={() => this.handleResetBattle()}/>;
     }
     return (
       <React.Fragment>
@@ -76,7 +83,9 @@ export default class Battle extends React.Component {
           {playerOne && playerTwo && (
             <button
               className='btn dark-btn btn-space'
-              onClick={() => this.setState({ battle: true })}
+              onClick={this.setState({
+                battle: true,
+              })}
             >
               Battle
             </button>
