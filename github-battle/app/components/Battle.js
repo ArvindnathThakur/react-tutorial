@@ -30,10 +30,6 @@ export default class Battle extends React.Component {
     });
   }
 
-  handleBattle() {
-    
-  }
-
   handleResetBattle() {
     this.setState({
       playerOne: null,
