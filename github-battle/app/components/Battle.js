@@ -1,8 +1,8 @@
-import React from 'react';
-import Instructions from './Instructions';
-import PlayerInput from './PlayerInput';
-import PlayerPreview from './PlayerPreview';
-import Results from './Results';
+import React from "react";
+import Instructions from "./Instructions";
+import PlayerInput from "./PlayerInput";
+import PlayerPreview from "./PlayerPreview";
+import Results from "./Results";
 
 export default class Battle extends React.Component {
   constructor(props) {
@@ -34,52 +34,62 @@ export default class Battle extends React.Component {
     this.setState({
       playerOne: null,
       playerTwo: null,
-      battle: false
+      battle: false,
     });
+  }
+
+  componentDidMount() {
+    this.setState({ playerOne: "sdras", playerTwo: "tylermcginnis" });
   }
 
   render() {
     const { playerOne, playerTwo, battle } = this.state;
     if (battle === true) {
-      return <Results playerOne={playerOne} playerTwo={playerTwo} onReset={() => this.handleResetBattle()}/>;
+      return (
+        <Results
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+          onReset={() => this.handleResetBattle()}
+        />
+      );
     }
     return (
       <React.Fragment>
         <Instructions />
-        <div className='players-container'>
-          <h1 className='center-text header-lg'>Players</h1>
+        <div className="players-container">
+          <h1 className="center-text header-lg">Players</h1>
 
-          <div className='row space-around'>
+          <div className="row space-around">
             {playerOne === null ? (
               <PlayerInput
-                label='Player One'
-                onSubmit={(player) => this.handleSubmit('playerOne', player)}
+                label="Player One"
+                onSubmit={(player) => this.handleSubmit("playerOne", player)}
               />
             ) : (
               <PlayerPreview
-                label='Player One'
+                label="Player One"
                 username={playerOne}
-                onReset={() => this.handleReset('playerOne')}
+                onReset={() => this.handleReset("playerOne")}
               />
             )}
 
             {playerTwo === null ? (
               <PlayerInput
-                label='Player Two'
-                onSubmit={(player) => this.handleSubmit('playerTwo', player)}
+                label="Player Two"
+                onSubmit={(player) => this.handleSubmit("playerTwo", player)}
               />
             ) : (
               <PlayerPreview
-                label='Player Two'
+                label="Player Two"
                 username={playerTwo}
-                onReset={() => this.handleReset('playerTwo')}
+                onReset={() => this.handleReset("playerTwo")}
               />
             )}
           </div>
           {playerOne && playerTwo && (
             <button
-              className='btn dark-btn btn-space'
-              onClick={this.setState({
+              className="btn dark-btn btn-space"
+              onClick={() => this.setState({
                 battle: true,
               })}
             >
