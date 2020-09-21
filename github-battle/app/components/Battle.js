@@ -1,4 +1,5 @@
 import React from "react";
+import { ThemeConsumer } from "../contexts/theme";
 import Instructions from "./Instructions";
 import PlayerInput from "./PlayerInput";
 import PlayerPreview from "./PlayerPreview";
@@ -86,15 +87,22 @@ export default class Battle extends React.Component {
               />
             )}
           </div>
+
           {playerOne && playerTwo && (
-            <button
-              className="btn dark-btn btn-space"
-              onClick={() => this.setState({
-                battle: true,
-              })}
-            >
-              Battle
-            </button>
+            <ThemeConsumer>
+              {({ theme }) => (
+                <button
+                  className={`btn ${theme==='light' ? 'dark': 'light'}-btn btn-space`}
+                  onClick={() =>
+                    this.setState({
+                      battle: true,
+                    })
+                  }
+                >
+                  Battle
+                </button>
+              )}
+            </ThemeConsumer>
           )}
         </div>
       </React.Fragment>

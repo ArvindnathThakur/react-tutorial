@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Card from "./Card";
 import ProfileList from "./ProfileList";
 import Loading from "./Loading";
+import { ThemeConsumer } from "../contexts/theme";
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class Results extends React.Component {
     const { winner, loser, error, loading } = this.state;
 
     if (loading === true) {
-      return <Loading content='Winner is' />
+      return <Loading content="Winner is" />;
     }
 
     if (error) {
@@ -68,9 +69,18 @@ export default class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <button className="btn dark-btn btn-space" onClick={this.props.onReset}>
-          Reset
-        </button>
+        <ThemeConsumer>
+          {({ theme }) => (
+            <button
+              className={`btn ${
+                theme === "light" ? "dark" : "light"
+              }-btn-btn btn-space`}
+              onClick={this.props.onReset}
+            >
+              Reset
+            </button>
+          )}
+        </ThemeConsumer>
       </React.Fragment>
     );
   }
