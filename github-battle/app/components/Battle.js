@@ -3,7 +3,7 @@ import { ThemeConsumer } from "../contexts/theme";
 import Instructions from "./Instructions";
 import PlayerInput from "./PlayerInput";
 import PlayerPreview from "./PlayerPreview";
-import Results from "./Results";
+import { Link } from "react-router-dom";
 
 export default class Battle extends React.Component {
   constructor(props) {
@@ -11,7 +11,6 @@ export default class Battle extends React.Component {
     this.state = {
       playerOne: null,
       playerTwo: null,
-      battle: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +34,6 @@ export default class Battle extends React.Component {
     this.setState({
       playerOne: null,
       playerTwo: null,
-      battle: false,
     });
   }
 
@@ -44,16 +42,7 @@ export default class Battle extends React.Component {
   }
 
   render() {
-    const { playerOne, playerTwo, battle } = this.state;
-    if (battle === true) {
-      return (
-        <Results
-          playerOne={playerOne}
-          playerTwo={playerTwo}
-          onReset={() => this.handleResetBattle()}
-        />
-      );
-    }
+    const { playerOne, playerTwo } = this.state;
     return (
       <React.Fragment>
         <Instructions />
@@ -89,20 +78,16 @@ export default class Battle extends React.Component {
           </div>
 
           {playerOne && playerTwo && (
-            <ThemeConsumer>
-              {({ theme }) => (
-                <button
-                  className={`btn ${theme==='light' ? 'dark': 'light'}-btn btn-space`}
-                  onClick={() =>
-                    this.setState({
-                      battle: true,
-                    })
-                  }
-                >
-                  Battle
-                </button>
-              )}
-            </ThemeConsumer>
+            <ThemeConsumer>{({ theme }) => 
+            <Link
+            className={`btn ${
+              theme === "light" ? "dark" : "light"
+            }-btn btn-space`}
+              to={{
+                pathname: '/battle/results',
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+              }}
+            >Battle</Link>}</ThemeConsumer>
           )}
         </div>
       </React.Fragment>

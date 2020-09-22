@@ -21,7 +21,6 @@ export default class Loading extends React.Component {
   }
 
   render() {
-    console.log(`Spinning at ${this.state.spinDegree}`);
     return (
       <p style={styles.content}>
         {this.state.content} <FaSpinner className="fa-spin" />
