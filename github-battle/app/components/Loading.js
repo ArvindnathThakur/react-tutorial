@@ -13,12 +13,17 @@ const styles = {
 };
 
 export default class Loading extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: props.text
-    };
-  }
+  state = {
+    content: this.props.text,
+  };
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    text: "Loading",
+  };
 
   render() {
     return (
@@ -28,11 +33,3 @@ export default class Loading extends React.Component {
     );
   }
 }
-
-Loading.propTypes = {
-  text: PropTypes.string.isRequired
-};
-
-Loading.defaultProps = {
-  text: "Loading"
-};

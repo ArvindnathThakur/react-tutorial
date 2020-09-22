@@ -6,40 +6,29 @@ import PlayerPreview from "./PlayerPreview";
 import { Link } from "react-router-dom";
 
 export default class Battle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      playerOne: null,
-      playerTwo: null,
-    };
+  state = {
+    playerOne: null,
+    playerTwo: null,
+  };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.handleResetBattle = this.handleResetBattle.bind(this);
-  }
-
-  handleSubmit(id, player) {
+  handleSubmit = (id, player) => {
     this.setState({
       [id]: player,
     });
-  }
+  };
 
-  handleReset(id) {
+  handleReset = (id) => {
     this.setState({
       [id]: null,
     });
-  }
+  };
 
-  handleResetBattle() {
+  handleResetBattle = () => {
     this.setState({
       playerOne: null,
       playerTwo: null,
     });
-  }
-
-  componentDidMount() {
-    this.setState({ playerOne: "sdras", playerTwo: "tylermcginnis" });
-  }
+  };
 
   render() {
     const { playerOne, playerTwo } = this.state;
@@ -78,16 +67,21 @@ export default class Battle extends React.Component {
           </div>
 
           {playerOne && playerTwo && (
-            <ThemeConsumer>{({ theme }) => 
-            <Link
-            className={`btn ${
-              theme === "light" ? "dark" : "light"
-            }-btn btn-space`}
-              to={{
-                pathname: '/battle/results',
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
-              }}
-            >Battle</Link>}</ThemeConsumer>
+            <ThemeConsumer>
+              {({ theme }) => (
+                <Link
+                  className={`btn ${
+                    theme === "light" ? "dark" : "light"
+                  }-btn btn-space`}
+                  to={{
+                    pathname: "/battle/results",
+                    search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+                  }}
+                >
+                  Battle
+                </Link>
+              )}
+            </ThemeConsumer>
           )}
         </div>
       </React.Fragment>

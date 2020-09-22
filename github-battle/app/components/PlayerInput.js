@@ -3,27 +3,25 @@ import PropTypes from "prop-types";
 import { ThemeConsumer } from "../contexts/theme";
 
 export default class PlayerInput extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    username: "",
+  };
 
-    this.state = {
-      username: "",
-    };
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired,
+  };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleSubmit(event) {
-    this.preventDefault;
+  handleSubmit = (event) => {
+    event.preventDefault();
     this.props.onSubmit(this.state.username);
-  }
+  };
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({
       username: event.target.value,
     });
-  }
+  };
 
   render() {
     return (
@@ -44,7 +42,7 @@ export default class PlayerInput extends React.Component {
                 onChange={this.handleChange}
               />
               <button
-                className={`btn ${theme==='light' ? 'dark': 'light'}-btn`}
+                className={`btn ${theme === "light" ? "dark" : "light"}-btn`}
                 type="submit"
                 disabled={!this.state.username}
               >
@@ -57,8 +55,3 @@ export default class PlayerInput extends React.Component {
     );
   }
 }
-
-PlayerInput.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
-};

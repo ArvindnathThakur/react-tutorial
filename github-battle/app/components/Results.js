@@ -8,16 +8,13 @@ import queryString from 'query-string'
 import {Link} from 'react-router-dom'
 
 export default class Results extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    winner: null,
+    loser: null,
+    error: null,
+    loading: true,
+  };
 
-    this.state = {
-      winner: null,
-      loser: null,
-      error: null,
-      loading: true,
-    };
-  }
   componentDidMount() {
     const { playerOne, playerTwo } = queryString.parse(this.props.location.search)
 
