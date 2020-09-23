@@ -1,3 +1,14 @@
+## Eureka
+> UI is a function of your `state` and `props` are to `components` what arguments are to `functions`. `fn(d) = V` => Function takes in data to return View.
+
+> `JSX` is an abstraction over `React.createElement` which is a function that returns an object representation of the DOM.
+
+## Higher-Order Component
+- Is a component
+- Takes in a component as an argument
+- Returns a new component
+- The component it returns can render the original component that was passed in
+
 ## Dynamic Import aka Code Splitting
 
 > Check library react-loadable
