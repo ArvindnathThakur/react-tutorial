@@ -3,9 +3,9 @@ import { battle } from "./utils/api";
 import Card from "./Card";
 import ProfileList from "./ProfileList";
 import Loading from "./Loading";
-import { ThemeConsumer } from "../contexts/theme";
-import queryString from 'query-string'
-import {Link} from 'react-router-dom'
+import ThemeContext from "../contexts/theme";
+import queryString from "query-string";
+import { Link } from "react-router-dom";
 
 export default class Results extends React.Component {
   state = {
@@ -16,7 +16,9 @@ export default class Results extends React.Component {
   };
 
   componentDidMount() {
-    const { playerOne, playerTwo } = queryString.parse(this.props.location.search)
+    const { playerOne, playerTwo } = queryString.parse(
+      this.props.location.search
+    );
 
     battle([playerOne, playerTwo])
       .then((players) => {
@@ -35,6 +37,7 @@ export default class Results extends React.Component {
       });
   }
   render() {
+    const theme = React.useContext(ThemeContext);
     const { winner, loser, error, loading } = this.state;
 
     if (loading === true) {
@@ -67,18 +70,14 @@ export default class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <ThemeConsumer>
-          {({ theme }) => (
-            <Link
-              to="/battle"
-              className={`btn ${
-                theme === "light" ? "dark" : "light"
-              }-btn btn-space`}
-            >
-              Reset
-            </Link>
-          )}
-        </ThemeConsumer>
+        <Link
+          to="/battle"
+          className={`btn ${
+            theme === "light" ? "dark" : "light"
+          }-btn btn-space`}
+        >
+          Reset
+        </Link>
       </React.Fragment>
     );
   }

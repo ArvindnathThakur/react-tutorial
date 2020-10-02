@@ -1,9 +1,9 @@
 import React from "react";
-import { ThemeConsumer } from "../contexts/theme";
 import Instructions from "./Instructions";
 import PlayerInput from "./PlayerInput";
 import PlayerPreview from "./PlayerPreview";
 import { Link } from "react-router-dom";
+import ThemeContext from "../contexts/theme";
 
 export default class Battle extends React.Component {
   state = {
@@ -31,6 +31,7 @@ export default class Battle extends React.Component {
   };
 
   render() {
+    const theme = React.useContext(ThemeContext);
     const { playerOne, playerTwo } = this.state;
     return (
       <React.Fragment>
@@ -67,21 +68,17 @@ export default class Battle extends React.Component {
           </div>
 
           {playerOne && playerTwo && (
-            <ThemeConsumer>
-              {({ theme }) => (
-                <Link
-                  className={`btn ${
-                    theme === "light" ? "dark" : "light"
-                  }-btn btn-space`}
-                  to={{
-                    pathname: "/battle/results",
-                    search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
-                  }}
-                >
-                  Battle
-                </Link>
-              )}
-            </ThemeConsumer>
+            <Link
+              className={`btn ${
+                theme === "light" ? "dark" : "light"
+              }-btn btn-space`}
+              to={{
+                pathname: "/battle/results",
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+              }}
+            >
+              Battle
+            </Link>
           )}
         </div>
       </React.Fragment>

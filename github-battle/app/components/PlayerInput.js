@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeConsumer } from "../contexts/theme";
+import ThemeContext from "../contexts/theme";
 
 export default class PlayerInput extends React.Component {
   state = {
@@ -24,34 +24,31 @@ export default class PlayerInput extends React.Component {
   };
 
   render() {
+    const theme = React.useContext(ThemeContext);
     return (
-      <ThemeConsumer>
-        {({ theme }) => (
-          <form className="column player" onSubmit={this.handleSubmit}>
-            <label htmlFor="username" className="player-label">
-              {this.props.label}
-            </label>
-            <div className="row player-inputs">
-              <input
-                type="text"
-                id="username"
-                className={`input-${theme}`}
-                placeholder="github username"
-                autoComplete="off"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-              <button
-                className={`btn ${theme === "light" ? "dark" : "light"}-btn`}
-                type="submit"
-                disabled={!this.state.username}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        )}
-      </ThemeConsumer>
+      <form className="column player" onSubmit={this.handleSubmit}>
+        <label htmlFor="username" className="player-label">
+          {this.props.label}
+        </label>
+        <div className="row player-inputs">
+          <input
+            type="text"
+            id="username"
+            className={`input-${theme}`}
+            placeholder="github username"
+            autoComplete="off"
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <button
+            className={`btn ${theme === "light" ? "dark" : "light"}-btn`}
+            type="submit"
+            disabled={!this.state.username}
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     );
   }
 }
