@@ -8,7 +8,6 @@ import {
 } from "react-icons/fa";
 import PropTypes from "prop-types";
 import Tooltip from "./Tooltip";
-import TooltipHoc from "./TooltipHoc";
 
 export default function ProfileList({ profile }) {
   return (
@@ -34,10 +33,10 @@ export default function ProfileList({ profile }) {
         )}
       </li>
       <li>
-        <TooltipHoc text="User's Followers">
+        <Tooltip text="User's Followers">
           <FaUsers color="rgb(129, 195, 245)" size={22} />
           {profile.followers.toLocaleString()} followers
-        </TooltipHoc>
+        </Tooltip>
       </li>
       <li>
         <FaUserFriends color="rgb(64, 183, 95)" size={22} />

@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 const activeStyle = {
   color: "rgb(187, 46, 31)",
 };
+
 export default function Nav({ toggleTheme }) {
   const theme = React.useContext(ThemeContext);
   return (

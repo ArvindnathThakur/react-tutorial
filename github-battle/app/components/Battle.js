@@ -5,83 +5,81 @@ import PlayerPreview from "./PlayerPreview";
 import { Link } from "react-router-dom";
 import ThemeContext from "../contexts/theme";
 
-export default class Battle extends React.Component {
-  state = {
-    playerOne: null,
-    playerTwo: null,
+export default function Battle() {
+  const [playerOne, setPlayerOne] = React.useState(null);
+  const [playerTwo, setPlayerTwo] = React.useState(null);
+
+  const handleSubmit = (id, player) => {
+    if (id === "playerOne") {
+      setPlayerOne(player);
+    } else if (id === "playerTwo") {
+      setPlayerTwo(player);
+    }
   };
 
-  handleSubmit = (id, player) => {
-    this.setState({
-      [id]: player,
-    });
+  const handleReset = (id) => {
+    if (id === "playerOne") {
+      setPlayerOne(null);
+    } else if (id === "playerTwo") {
+      setPlayerTwo(null);
+    }
   };
 
-  handleReset = (id) => {
-    this.setState({
-      [id]: null,
-    });
+  const handleResetBattle = () => {
+    setPlayerOne(null);
+    setPlayerTwo(null);
   };
 
-  handleResetBattle = () => {
-    this.setState({
-      playerOne: null,
-      playerTwo: null,
-    });
-  };
+  const theme = React.useContext(ThemeContext);
+  
+  return (
+    <React.Fragment>
+      <Instructions />
+      <div className="players-container">
+        <h1 className="center-text header-lg">Players</h1>
 
-  render() {
-    const theme = React.useContext(ThemeContext);
-    const { playerOne, playerTwo } = this.state;
-    return (
-      <React.Fragment>
-        <Instructions />
-        <div className="players-container">
-          <h1 className="center-text header-lg">Players</h1>
+        <div className="row space-around">
+          {playerOne === null ? (
+            <PlayerInput
+              label="Player One"
+              onSubmit={(player) => handleSubmit("playerOne", player)}
+            />
+          ) : (
+            <PlayerPreview
+              label="Player One"
+              username={playerOne}
+              onReset={() => handleReset("playerOne")}
+            />
+          )}
 
-          <div className="row space-around">
-            {playerOne === null ? (
-              <PlayerInput
-                label="Player One"
-                onSubmit={(player) => this.handleSubmit("playerOne", player)}
-              />
-            ) : (
-              <PlayerPreview
-                label="Player One"
-                username={playerOne}
-                onReset={() => this.handleReset("playerOne")}
-              />
-            )}
-
-            {playerTwo === null ? (
-              <PlayerInput
-                label="Player Two"
-                onSubmit={(player) => this.handleSubmit("playerTwo", player)}
-              />
-            ) : (
-              <PlayerPreview
-                label="Player Two"
-                username={playerTwo}
-                onReset={() => this.handleReset("playerTwo")}
-              />
-            )}
-          </div>
-
-          {playerOne && playerTwo && (
-            <Link
-              className={`btn ${
-                theme === "light" ? "dark" : "light"
-              }-btn btn-space`}
-              to={{
-                pathname: "/battle/results",
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
-              }}
-            >
-              Battle
-            </Link>
+          {playerTwo === null ? (
+            <PlayerInput
+              label="Player Two"
+              onSubmit={(player) => handleSubmit("playerTwo", player)}
+            />
+          ) : (
+            <PlayerPreview
+              label="Player Two"
+              username={playerTwo}
+              onReset={() => handleReset("playerTwo")}
+            />
           )}
         </div>
-      </React.Fragment>
-    );
-  }
+
+        {playerOne && playerTwo && (
+          <Link
+            className={`btn ${
+              theme === "light" ? "dark" : "light"
+            }-btn btn-space`}
+            to={{
+              pathname: "/battle/results",
+              search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+            }}
+          >
+            Battle
+          </Link>
+        )}
+      </div>
+    </React.Fragment>
+  );
 }

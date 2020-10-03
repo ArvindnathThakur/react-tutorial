@@ -12,24 +12,18 @@ const styles = {
   },
 };
 
-export default class Loading extends React.Component {
-  state = {
-    content: this.props.text,
-  };
-
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
-
-  static defaultProps = {
-    text: "Loading",
-  };
-
-  render() {
-    return (
-      <p style={styles.content}>
-        {this.state.content} <FaSpinner className="fa-spin" />
-      </p>
-    );
-  }
+export default function Loading({ text }) {
+  return (
+    <p style={styles.content}>
+      {text} <FaSpinner className="fa-spin" />
+    </p>
+  );
 }
+
+Loading.propTypes = {
+  text: PropTypes.string.isRequired,
+};
+
+Loading.defaultProps = {
+  text: "Loading",
+};
